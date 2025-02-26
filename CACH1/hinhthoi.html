@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canvas Animated Shape</title>
+    <style>
+        body {
+            margin: 0;
+            background-color: black;
+            overflow: hidden;
+        }
+        canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="canvas"></canvas>
+
+    <script>
+        const canvas = document.getElementById("canvas");
+        const ctx = canvas.getContext("2d");
+
+        // Kích thước canvas
+        function setCanvasSize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        let minWidth = 10;
+        let maxWidth = 600;
+        let currentWidth = minWidth;
+        let growing = true;
+
+        const colors = ["red", "blue", "green", "purple", "orange"];
+        let colorIndex = 0;
+
+        function drawShape() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Tạo gradient
+            const gradient = ctx.createLinearGradient(0, 0, currentWidth, 0);
+            gradient.addColorStop(0, colors[colorIndex]);
+            gradient.addColorStop(1, "white");
+
+            ctx.fillStyle = gradient;
+            ctx.save();
+            ctx.translate(150, 130);
+            ctx.transform(1, 0, Math.tan(60 * Math.PI / 180), 1, 0, 0); // Thay đổi góc xéo
+            ctx.rotate(30 * Math.PI / 180); // Thay đổi góc xoay
+            ctx.fillRect(0, 0, currentWidth, 150);
+            ctx.restore();
+        }
+
+        function animateShape() {
+            if (growing) {
+                currentWidth += 5;
+                if (currentWidth >= maxWidth) {
+                    currentWidth = minWidth;
+                    colorIndex = (colorIndex + 1) % colors.length;
+                }
+            }
+            drawShape();
+            requestAnimationFrame(animateShape);
+        }
+
+        // Khởi động
+        window.addEventListener('resize', setCanvasSize);
+        setCanvasSize();
+        animateShape();
+    </script>
+
+</body>
+</html>
