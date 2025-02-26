@@ -4,7 +4,6 @@ const PulsatingCircle = () => {
     const canvasRef = useRef(null);
     const animationRef = useRef(null);
     const scaleRef = useRef(1);
-    const growing = useRef(true);
 
     const drawCircle = (scale) => {
         const canvas = canvasRef.current;
@@ -20,12 +19,11 @@ const PulsatingCircle = () => {
     };
 
     const animate = () => {
-        if (growing.current) {
-            scaleRef.current += 0.05;
-            if (scaleRef.current >= 5) growing.current = false;
-        } else {
-            scaleRef.current -= 0.05;
-            if (scaleRef.current <= 1) growing.current = true;
+        scaleRef.current += 0.04;
+
+        // Reset scale when it reaches a maximum value
+        if (scaleRef.current >= 5) {
+            scaleRef.current = 1; // Đặt lại scale về 1
         }
 
         drawCircle(scaleRef.current);
