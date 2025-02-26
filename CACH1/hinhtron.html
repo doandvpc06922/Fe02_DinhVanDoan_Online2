@@ -18,22 +18,22 @@
             height: 100px;
             background-color: yellow;
             border-radius: 50%;
-            animation: pulse 8s infinite ease-in; /* Hiệu ứng phồng liên tục */
-        }
-        @keyframes pulse {
-            0% {
-                transform: scale(1); /* Kích thước ban đầu */
-            }
-            50% {
-                transform: scale(5); /* Phồng lên 5 lần */
-            }
-            100% {
-                transform: scale(5); /* Giữ nguyên kích thước phồng */
-            }
+            transition: width 0.1s, height 0.1s, opacity 0.1s;
         }
     </style>
 </head>
 <body>
     <div class="circle"></div>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const circle = document.querySelector(".circle");
+            let size = 20; // Bắt đầu với kích thước 100px
+            setInterval(() => {
+                size = size >= 500 ? 100 : size + 10; // Đặt lại về kích thước 100px
+                circle.style.width = `${size}px`;
+                circle.style.height = `${size}px`;
+            }, 100); // Thay đổi kích thước mỗi 100ms
+        });
+    </script>
 </body>
 </html>
