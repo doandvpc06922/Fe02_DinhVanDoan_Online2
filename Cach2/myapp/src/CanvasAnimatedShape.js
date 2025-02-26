@@ -7,7 +7,7 @@ const CanvasAnimatedShape = () => {
   const [colorIndex, setColorIndex] = useState(0);
   const maxWidth = 600;
   const minWidth = 10;
-  const growthRate = 2; // Tốc độ tăng chiều rộng
+  const growthRate = 3; // Tốc độ tăng chiều rộng
 
   useEffect(() => {
     const canvas = canvasRef.current;
